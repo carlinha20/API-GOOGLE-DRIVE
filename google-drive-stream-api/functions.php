@@ -15,7 +15,7 @@ function get_Content_Length($response_headers){
 
 function get_DRIVE_STREAM($file){
 	foreach ($file as $item) {
-		if(strpos($item, 'DRIVE_STREAM=') !== false){ //essa funçao limpa todo a requisiçao trazida // e tras os conteudo de uma forma limpa contida nela
+		if(strpos($item, 'DRIVE_STREAM=') !== false){ //essa funçao limpa toda a requisiçao trazida // e tras os conteudo de uma forma limpa contida nela
 			$file = explode(': ', $item)[1];
 			$file = str_replace('DRIVE_STREAM=', '', $file);
 			$file = explode(';', $file)[0];

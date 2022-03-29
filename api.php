@@ -3,7 +3,7 @@
 $file = file_get_contents("https://drive.google.com/drive/folders/1IfIgdHSk4S-poPxgWqhbT4r3FcT0Qq0O"); // aqui é o texto que retorna para a variavel file// lendo o arquivo em uma string...
 // string(sequencia de caracteres)
 $file = explode("window['_DRIVE_ivd'] = '", $file)[1]; //Delimitador e a String// Todo texto em php é transformado em uma string
-// quando faço a requisiçao com explode ele tras para mim as informaçoes trnsformanda em uma array(índices)
+// quando faço a requisiçao com explode ele tras para mim as informaçoes transformando em uma array(índices)
 $file =stripcslashes($file); // ele vai decodificar a string de forma visivel
 $file = explode("';if ", $file)[0]; // aqui ele vai me trazer um array
 

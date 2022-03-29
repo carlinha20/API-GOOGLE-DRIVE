@@ -1,0 +1,67 @@
+<?php 
+require_once "functions.php"; 
+
+// $data = get_video_info('1l1qnF1LyQOzSqJZX9DdrlOD5cOhQmovd');
+$data = get_video_info('1wbjbo5qepHGxVf46RPKoaAGU7iZUEdR0');
+// $data = get_video_info('1ZQX54BRUiF-sO73sogaAdK4RhIcFPLis');
+// $data = get_video_info('1r_2xs5KEqNpeThypcMq-KJ_NSWqyXgDq');
+
+// $h = get_Content_Length($data->formats[0]->url);
+
+// var_dump($data);
+// var_dump($h);
+
+
+$headers = [
+	"user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.102 Safari/537.36 Edg/98.0.1108.56",
+	"cookie: DRIVE_STREAM=$data->drive_stream;",
+];
+
+$headers = implode("\n", $headers);
+
+$options = (
+	array(
+		'http'=> array(
+			'method'=>'GET',
+			"header"=>"Content-Type: application/x-www-form-urlencoded\r\n".$headers,
+		)
+	)
+);
+
+$context = stream_context_create($options);
+
+// header('Content-Length: 27996334');
+header('content-type: video/mp4');
+header('accept-ranges: bytes');
+header('Pragma: public');
+header('Expires: 0');
+header('Content-Transfer-Encoding: binary');
+// header('Content-Disposition: inline; filename="videoplayback_proxy.mp4";');
+header('Content-Disposition: inline; filename="videoplayback_proxy.mp4";');
+
+// $file = "media/videoplayback.mp4";
+$file = $data->formats[0]->url;
+
+// var_dump($file);
+
+$chunkSize = 2048 * 2048;
+$handle = fopen($file, 'rb', false, $context);
+
+$content_length = get_Content_Length($http_response_header);
+header("Content-Length: $content_length");
+
+// die();
+
+while (!feof($handle)){
+    $buffer = fread($handle, $chunkSize);
+    echo $buffer;
+    ob_flush();
+    flush();
+}
+fclose($handle);
+exit;
+
+
+
+
+?>
